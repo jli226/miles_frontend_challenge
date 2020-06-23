@@ -1,5 +1,5 @@
 import React from 'react';
-import DropZone from './DropZone';
+import Indicators from './Indicators';
 import clsx from 'clsx';
 import { useDrop } from 'react-dnd'
 import { observer } from 'mobx-react';
@@ -10,14 +10,26 @@ const Column = observer((props: { category: string }) => {
   const { category } = props
   const store = useStore()
   const [{ canDrop, isOver }, drop] =  useDrop({
-    accept: ItemTypes.REWARD,
+    accept: [ItemTypes.REWARD, ItemTypes.INDICATOR],
     drop: (item: DragObject) => {
-      store.add(item.reward, category)
+      console.log('drop');
+      if (item.type === ItemTypes.REWARD) {
+        store.add(item.reward, category)
+      }
+      if (item.type === ItemTypes.INDICATOR) {
+        store.move(item.reward, item.srcCategory!, category)
+      }
       return { name: category }
     },
     canDrop: (item: DragObject) => {
-      const categorySet = store.getCategorySet(item.reward)
-      return !categorySet.has(category)
+      if (item.type === ItemTypes.REWARD) {
+        const categorySet = store.getCategorySet(item.reward)
+        return !categorySet.has(category)
+      }
+      if (item.type === ItemTypes.INDICATOR) {
+        return true
+      }
+      return false
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -30,7 +42,7 @@ const Column = observer((props: { category: string }) => {
       'drop-not-allow': !canDrop && isOver
     })}>
       <div className='header'>{category}</div>
-      <DropZone {...{ category }} />
+      <Indicators {...{ category }} />
     </div>
   )
 })
