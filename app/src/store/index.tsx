@@ -35,12 +35,14 @@ export class Store {
 
   rewardCategoryMap = observable.map({});
 
+  // TODO: can make rewards and categories more dynamic
   @observable
   rewards = REWARDS;
 
   @observable
   categories = CATEGORIES;
 
+  // TODO: need to evaluate how long history can track before hits performance overhead
   @observable
   history: any[] = [];
 
