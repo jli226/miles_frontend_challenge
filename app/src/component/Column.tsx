@@ -22,14 +22,8 @@ const Column = observer((props: { category: string }) => {
       return { name: category }
     },
     canDrop: (item: DragObject) => {
-      if (item.type === ItemTypes.REWARD) {
-        const categorySet = store.getCategorySet(item.reward)
-        return !categorySet.has(category)
-      }
-      if (item.type === ItemTypes.INDICATOR) {
-        return true
-      }
-      return false
+      const categorySet = store.getCategorySet(item.reward)
+      return !categorySet.has(category)
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
