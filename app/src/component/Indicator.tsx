@@ -1,5 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import clsx from 'clsx'
 import { useStore } from '../store/useStore';
 
 const Indicator = observer((props: {
@@ -10,16 +11,11 @@ const Indicator = observer((props: {
   const store = useStore()
   const set = store.getCategorySet(reward)
   const isBelongTo = set.has(category)
-  if (isBelongTo) {
-    return (
-    <div>
-      {reward}
-    </div>
-    )
-  }
   return (
-    <div>
-      none
+    <div className={clsx("indicator", {
+      'belong-to': isBelongTo
+    })}>
+      {reward}
     </div>
   )
 })

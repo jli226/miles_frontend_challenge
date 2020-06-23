@@ -22,6 +22,7 @@
   align-items: center;
   border: 1px solid black;
   font-size: 1rem;
+  min-height: 1rem;
   margin: 1rem;
   padding: 1rem;
 }
@@ -44,7 +45,7 @@
 }
 
 .placeholder {
-  height: 4.5rem;
+  height: 4.2rem;
 }
 
 .lane {
@@ -53,9 +54,34 @@
 }
 
 .dropzone {
-  height: 100%;
+  padding: 0;
 }
 
-.drop-hover {
+.dropzone.drop-hover {
   background-color: aqua;
+}
+
+.dropzone.drop-not-allow {
+  background-color: red;
+}
+
+.indicators {
+  display: flex;
+  flex-direction: column;
+}
+
+.indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  margin: 1rem;
+  padding: 1rem;
+  min-height: 1rem;
+  border: 1px solid black;
+  opacity: 0;
+}
+
+.indicator.belong-to {
+  opacity: 1;
 }
