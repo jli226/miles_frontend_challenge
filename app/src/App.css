@@ -104,13 +104,14 @@
   top: 0;
   width: 1rem;
   height: 1rem;
-  opacity: 0.0;
+  opacity: 0;
 }
 
-.close:before, .close:after {
+.close:before,
+.close:after {
   position: absolute;
   left: 8px;
-  content: ' ';
+  content: " ";
   height: 0.9rem;
   width: 2px;
   background-color: #333;
