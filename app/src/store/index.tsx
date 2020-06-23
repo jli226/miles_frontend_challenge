@@ -92,7 +92,7 @@ export class Store {
 
   pushHistory = () => {
     if (this.index !== -1) {
-      this.history.splice(this.index);
+      this.history.splice(this.index + 1);
       this.index = -1;
     }
     const curState = JSON.stringify(toJS(this.rewardCategoryMap));
