@@ -5,6 +5,19 @@
   align-items: center;
 }
 
+.toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  min-width: 30rem;
+  line-height: 2rem;
+}
+
+.divider {
+  padding: 0 1rem;
+}
+
 .main {
   display: flex;
   margin: 1rem;

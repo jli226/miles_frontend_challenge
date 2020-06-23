@@ -30,6 +30,7 @@ export class Store {
     }
     const map = jsonStrToMap(data);
     this.rewardCategoryMap.replace(map);
+    this.autoSave = Boolean(localStorage.getItem("autoSave"));
   }
 
   rewardCategoryMap = observable.map({});
@@ -46,6 +47,9 @@ export class Store {
   @observable
   index = -1;
 
+  @observable
+  autoSave = false;
+
   @computed
   get canUndo() {
     return this.history.length > 0 && (this.index === -1 || this.index > 0);
@@ -56,13 +60,26 @@ export class Store {
     return this.index >= 0 && this.index + 1 < this.history.length;
   }
 
+  @action
+  save = () => {
+    persistMap(JSON.stringify(toJS(this.rewardCategoryMap)));
+  };
+
+  @action
+  toggleAutoSave = () => {
+    this.autoSave = !this.autoSave;
+    localStorage.setItem("autoSave", this.autoSave ? "1" : "");
+  };
+
   restoreFromIndex = () => {
     if (this.index < 0 || this.index + 1 > this.history.length) {
       return;
     }
     const state = this.history[this.index];
     this.rewardCategoryMap.replace(jsonStrToMap(state));
-    persistMap(state);
+    if (this.autoSave) {
+      persistMap(state);
+    }
   };
 
   @action
@@ -97,7 +114,9 @@ export class Store {
     }
     const curState = JSON.stringify(toJS(this.rewardCategoryMap));
     this.history.push(curState);
-    persistMap(curState);
+    if (this.autoSave) {
+      persistMap(curState);
+    }
   };
 
   ensureStoreHistory = () => {

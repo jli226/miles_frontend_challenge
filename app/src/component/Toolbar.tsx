@@ -8,11 +8,21 @@ const Toolbar = observer(() => {
     <div className="toolbar">
       <button disabled={!store.canUndo} onClick={store.undo}>
         Undo
-      </button>{" "}
-      /{" "}
+      </button>
+      <span> / </span>
       <button disabled={!store.canRedo} onClick={store.redo}>
         Redo
       </button>
+      <span className="divider">|</span>
+      <button onClick={store.save}>Save</button>
+      <label>
+        <input
+          type="checkbox"
+          checked={store.autoSave}
+          onChange={store.toggleAutoSave}
+        />
+        Auto Save
+      </label>
     </div>
   );
 });
