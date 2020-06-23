@@ -23,6 +23,7 @@ const Indicator = observer((props: {
     })}
     ref={drag}
     >
+      <div className='close' onClick={() => store.delete(reward, category)} />
       {reward}
     </div>
   )
