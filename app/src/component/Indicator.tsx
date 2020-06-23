@@ -10,12 +10,13 @@ const Indicator = observer((props: {
   reward: string
 }) => {
   const { category, reward } = props
-  const [, drag] = useDrag({
-    item: { reward, srcCategory: category, type: ItemTypes.INDICATOR }
-  })
   const store = useStore()
   const set = store.getCategorySet(reward)
   const isBelongTo = set.has(category)
+  const [, drag] = useDrag({
+    item: { reward, srcCategory: category, type: ItemTypes.INDICATOR },
+    canDrag: () => isBelongTo
+  })
   return (
     <div className={clsx("indicator", {
       'belong-to': isBelongTo

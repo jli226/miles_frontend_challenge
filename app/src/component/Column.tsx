@@ -38,8 +38,7 @@ const Column = observer((props: { category: string }) => {
   })
   return (
     <div ref={drop} className={clsx('lane dropzone', {
-      'drop-hover': isOver,
-      'drop-not-allow': !canDrop && isOver
+      'drop-hover': isOver && canDrop,
     })}>
       <div className='header'>{category}</div>
       <Indicators {...{ category }} />

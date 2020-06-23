@@ -61,10 +61,6 @@
   background-color: aqua;
 }
 
-.dropzone.drop-not-allow {
-  background-color: red;
-}
-
 .indicators {
   display: flex;
   flex-direction: column;
