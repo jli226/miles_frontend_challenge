@@ -3,16 +3,12 @@ import './App.css';
 import { useStore } from './store/useStore';
 import Reward from './component/Reward';
 import { observer } from 'mobx-react';
+import Columns from './component/Columns';
 
 const App = observer(() => {
   const store = useStore()
   const rewards = store.rewards.map(reward => (
     <Reward key={reward} reward={reward} />
-  ))
-  const categories = store.categories.map(category => (
-    <div className='lane' key={category}>
-      <div className='header'>{category}</div>
-    </div>
   ))
   return (
     <div className="app">
@@ -23,13 +19,8 @@ const App = observer(() => {
       </div>
       <div className="categories-container">
         <div className="header">Categories</div>
-        <div className='columns'>
-          {categories}
-        </div>
+        <Columns />
       </div>
-      <button onClick={() => store.add('R1', 'C1')}>add</button>
-      <button onClick={() => store.delete('R1', 'C1')}>remove</button>
-      <button onClick={() => store.move('R1', 'C1', 'C2')}>move</button>
     </div>
   )
 })
