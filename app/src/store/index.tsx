@@ -118,7 +118,6 @@ export class Store {
   @action
   delete = (reward: string, category: string) => {
     this.ensureStoreHistory();
-    console.log("delete", { reward, category });
     const set = this.getCategorySet(reward);
     set.delete(category);
     this.rewardCategoryMap.set(reward, set);

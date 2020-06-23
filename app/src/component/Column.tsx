@@ -12,7 +12,6 @@ const Column = observer((props: { category: string }) => {
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: [ItemTypes.REWARD, ItemTypes.INDICATOR],
     drop: (item: DragObject) => {
-      console.log("drop");
       if (item.type === ItemTypes.REWARD) {
         store.add(item.reward, category);
       }
