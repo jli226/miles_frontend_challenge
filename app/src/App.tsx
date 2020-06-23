@@ -1,28 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-
-const REWARDS = [
-  'R1',
-  'R2',
-  'R3',
-  'R4',
-  'R5',
-]
-
-const CATEGORIES = [
-  "C1",
-  "C2",
-  "C3",
-  "C4",
-  "C5",
-]
+import { useStore } from './store/useStore';
 
 function App() {
-  const rewards = REWARDS.map(reward => (
+  const store = useStore()
+  const rewards = store.rewards.map(reward => (
     <div key={reward} className='reward'>{reward}</div>
   ))
-  const categories = CATEGORIES.map(category => (
+  const categories = store.categories.map(category => (
     <div className='lane'>
       <div key={category} className='header'>{category}</div>
     </div>
