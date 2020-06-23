@@ -16,9 +16,32 @@ const CATEGORIES = [
   "C5",
 ]
 
+const jsonStrToMap = (state: string) => {
+    try {
+        const obj: { [key: string]: string[] } = JSON.parse(state)
+        const newObjWithSet: { [key: string]: Set<string> } = {}
+        for (const [key, value] of Object.entries(obj)) {
+            newObjWithSet[key] = new Set(value)
+        }
+        return newObjWithSet
+    } catch (e) {
+        console.error(e);
+        return {}
+    }
+}
+
+const persistMap = (state: string) => {
+    localStorage.setItem('rewardCategoryMap', state)
+}
+
 export class Store {
     constructor () {
-        // TODO: add initial state to history
+        const data = localStorage.getItem('rewardCategoryMap')
+        if (!data) {
+            return
+        }
+        const map = jsonStrToMap(data)
+        this.rewardCategoryMap.replace(map)
     }
 
     rewardCategoryMap = observable.map({})
@@ -50,12 +73,8 @@ export class Store {
             return
         }
         const state = this.history[this.index]
-        const obj: { [key:string]: string[] } = JSON.parse(state)
-        const newObjWithSet: { [key:string]: Set<string> } = {}
-        for (const [key, value] of Object.entries(obj)) {
-            newObjWithSet[key] = new Set(value)
-        }
-        this.rewardCategoryMap.replace(newObjWithSet)
+        this.rewardCategoryMap.replace(jsonStrToMap(state))
+        persistMap(state)
     }
 
     @action
@@ -90,6 +109,7 @@ export class Store {
         }
         const curState = JSON.stringify(toJS(this.rewardCategoryMap))
         this.history.push(curState)
+        persistMap(curState)
     }
 
     ensureStoreHistory = () => {
